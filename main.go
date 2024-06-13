@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"example.com/go-bank-structs/account"
+)
 
 func main() {
-	fmt.Println("Hello World.")
+	account, err := account.New("test")
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	account.DisplayData()
 }

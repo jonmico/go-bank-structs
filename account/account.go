@@ -1,6 +1,9 @@
 package account
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type Account struct {
 	balance float64
@@ -22,3 +25,9 @@ func New(name string) (a *Account, err error) {
 		balance: 0.0,
 	}, nil
 }
+
+func (a Account) DisplayData() {
+	fmt.Printf("Account Name: %v\n", a.name)
+	fmt.Printf("Account Balance: $%.2f\n", a.balance)
+}
+
