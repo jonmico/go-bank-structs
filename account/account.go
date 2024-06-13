@@ -31,3 +31,14 @@ func (a Account) DisplayData() {
 	fmt.Printf("Account Balance: $%.2f\n", a.balance)
 }
 
+func (a *Account) Withdraw(withdraw float64) (err error) {
+	if withdraw > a.balance || withdraw <= 0 {
+		err := errors.New("withdraw amount cannot be greater than balance or less than or equal to 0 ")
+
+		return err
+	}
+
+	a.balance -= withdraw
+
+	return nil
+}
