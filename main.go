@@ -15,4 +15,21 @@ func main() {
 	}
 
 	account.DisplayData()
+
+	err = account.Deposit(100)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	account.DisplayData()
+
+	err = account.Withdraw(50.24)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 }
