@@ -27,8 +27,9 @@ func New(name string) (a *Account, err error) {
 }
 
 func (a Account) DisplayData() {
+	fmt.Printf("\n*~*~*~ Account Information ~*~*~*\n")
 	fmt.Printf("Account Name: %v\n", a.name)
-	fmt.Printf("Account Balance: $%.2f\n", a.balance)
+	fmt.Printf("Account Balance: $%.2f\n\n", a.balance)
 }
 
 func (a *Account) Withdraw(withdraw float64) (err error) {
