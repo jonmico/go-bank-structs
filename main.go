@@ -78,6 +78,7 @@ func openNewAccount() {
 	fmt.Printf("\nNew account created!\n")
 
 	account.DisplayData()
+	account.Save()
 }
 
 func bank() {

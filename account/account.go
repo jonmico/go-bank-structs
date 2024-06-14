@@ -1,13 +1,15 @@
 package account
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 )
 
 type Account struct {
-	balance float64
-	name    string
+	Balance float64 `json:"balance"`
+	Name    string  `json:"name"`
 }
 
 func New(name string) (a *Account, err error) {
@@ -15,35 +17,35 @@ func New(name string) (a *Account, err error) {
 		err := errors.New("account must have a name")
 
 		return &Account{
-			name:    "default",
-			balance: 0.0,
+			Name:    "default",
+			Balance: 0.0,
 		}, err
 	}
 
 	return &Account{
-		name:    name,
-		balance: 0.0,
+		Name:    name,
+		Balance: 0.0,
 	}, nil
 }
 
 func (a Account) DisplayData() {
 	fmt.Printf("\n*~*~*~ Account Information ~*~*~*\n")
-	fmt.Printf("Account Name: %v\n", a.name)
-	fmt.Printf("Account Balance: $%.2f\n\n", a.balance)
+	fmt.Printf("Account Name: %v\n", a.Name)
+	fmt.Printf("Account Balance: $%.2f\n\n", a.Balance)
 }
 
 func (a *Account) Withdraw(withdraw float64) (err error) {
-	if withdraw > a.balance || withdraw <= 0 {
+	if withdraw > a.Balance || withdraw <= 0 {
 		err := errors.New(
 			"withdraw amount cannot be greater than balance or less than or equal to 0")
 
 		return err
 	}
 
-	a.balance -= withdraw
+	a.Balance -= withdraw
 
 	fmt.Println("Withdraw successful!")
-	fmt.Printf("Current balance: $%.2f\n", a.balance)
+	fmt.Printf("Current balance: $%.2f\n", a.Balance)
 
 	return nil
 }
@@ -55,10 +57,22 @@ func (a *Account) Deposit(deposit float64) (err error) {
 		return err
 	}
 
-	a.balance += deposit
+	a.Balance += deposit
 
 	fmt.Println("Deposit successful!")
-	fmt.Printf("Current balance: $%.2f\n", a.balance)
+	fmt.Printf("Current balance: $%.2f\n", a.Balance)
 
 	return nil
+}
+
+func (a Account) Save() {
+	fileName := a.Name + ".json"
+
+	json, err := json.Marshal(a)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	os.WriteFile(fileName, json, 0644)
 }
