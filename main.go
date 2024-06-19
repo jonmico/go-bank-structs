@@ -76,7 +76,25 @@ func displayBankOptions(acc *account.Account) {
 	fmt.Println("3. Check account info")
 	fmt.Println("4. Exit")
 	choice := getUserInput("What would you like to do?: ")
-	fmt.Println(choice)
+
+	switch choice {
+	case 1:
+		var depositAmount float64
+		fmt.Print("How much would you like to deposit?: ")
+		fmt.Scan(&depositAmount)
+
+		acc.Deposit(depositAmount)
+	case 2:
+
+	case 3:
+
+	case 4:
+
+	default:
+
+		fmt.Println("This was not an option!")
+
+	}
 }
 
 func getNote() (*account.Account, error) {

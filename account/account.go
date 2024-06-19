@@ -59,8 +59,8 @@ func (a *Account) Deposit(deposit float64) (err error) {
 
 	a.Balance += deposit
 
-	fmt.Println("Deposit successful!")
-	fmt.Printf("Current balance: $%.2f\n", a.Balance)
+	fmt.Printf("\nDeposit successful!\n")
+	fmt.Printf("Current balance: $%.2f\n\n", a.Balance)
 
 	return nil
 }
