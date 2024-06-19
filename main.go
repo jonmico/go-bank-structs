@@ -21,9 +21,7 @@ func displayBankInterface() {
 		fmt.Println("1. Open a new account")
 		fmt.Println("2. Bank with an existing account")
 		fmt.Println("3. Exit")
-		var choice int
-		fmt.Print("Input selection here: ")
-		fmt.Scan(&choice)
+		choice := getUserInput("Input selection here: ")
 
 		switch choice {
 		case 1:
@@ -68,6 +66,17 @@ func bank() {
 	}
 
 	acc.DisplayData()
+	displayBankOptions(acc)
+}
+
+func displayBankOptions(acc *account.Account) {
+	fmt.Printf("What would you like to do with %v?:\n", acc.Name)
+	fmt.Println("1. Deposit money")
+	fmt.Println("2. Withdraw money")
+	fmt.Println("3. Check account info")
+	fmt.Println("4. Exit")
+	choice := getUserInput("What would you like to do?: ")
+	fmt.Println(choice)
 }
 
 func getNote() (*account.Account, error) {
@@ -90,4 +99,12 @@ func getNote() (*account.Account, error) {
 	json.Unmarshal(byteValue, &acc)
 
 	return &acc, nil
+}
+
+func getUserInput(prompt string) int {
+	var choice int
+	fmt.Print(prompt)
+	fmt.Scan(&choice)
+
+	return choice
 }
