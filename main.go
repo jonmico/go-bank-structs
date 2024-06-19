@@ -70,6 +70,8 @@ func bank() {
 }
 
 func displayBankOptions(acc *account.Account) {
+	// TODO: Put this in some type of loop
+
 	fmt.Printf("What would you like to do with %v?:\n", acc.Name)
 	fmt.Println("1. Deposit money")
 	fmt.Println("2. Withdraw money")
@@ -79,17 +81,18 @@ func displayBankOptions(acc *account.Account) {
 
 	switch choice {
 	case 1:
+		// TODO: Handle errors
 		var depositAmount float64
 		fmt.Print("How much would you like to deposit?: ")
 		fmt.Scan(&depositAmount)
 
 		acc.Deposit(depositAmount)
 	case 2:
-
+		// TODO: Implement withdraw
 	case 3:
-
+		// TODO: Implement display
 	case 4:
-
+		// TODO: Implement exit
 	default:
 
 		fmt.Println("This was not an option!")
