@@ -70,34 +70,57 @@ func bank() {
 }
 
 func displayBankOptions(acc *account.Account) {
-	// TODO: Put this in some type of loop
+	for {
+		fmt.Printf("What would you like to do with %v?:\n", acc.Name)
+		fmt.Println("1. Deposit money")
+		fmt.Println("2. Withdraw money")
+		fmt.Println("3. Check account info")
+		fmt.Println("4. Exit")
+		choice := getUserInput("What would you like to do?: ")
 
-	fmt.Printf("What would you like to do with %v?:\n", acc.Name)
-	fmt.Println("1. Deposit money")
-	fmt.Println("2. Withdraw money")
-	fmt.Println("3. Check account info")
-	fmt.Println("4. Exit")
-	choice := getUserInput("What would you like to do?: ")
+		switch choice {
+		case 1:
+			var depositAmount float64
+			fmt.Print("How much would you like to deposit?: ")
+			fmt.Scan(&depositAmount)
 
-	switch choice {
-	case 1:
-		// TODO: Handle errors
-		var depositAmount float64
-		fmt.Print("How much would you like to deposit?: ")
-		fmt.Scan(&depositAmount)
+			err := acc.Deposit(depositAmount)
 
-		acc.Deposit(depositAmount)
-	case 2:
-		// TODO: Implement withdraw
-	case 3:
-		// TODO: Implement display
-	case 4:
-		// TODO: Implement exit
-	default:
+			if err != nil {
+				bankError(err)
+			} else {
+				acc.Save()
+			}
 
-		fmt.Println("This was not an option!")
+		case 2:
+			var withdrawAmount float64
+			fmt.Print("How much would you like to withdraw?: ")
+			fmt.Scan(&withdrawAmount)
 
+			err := acc.Withdraw(withdrawAmount)
+
+			if err != nil {
+				bankError(err)
+			} else {
+				acc.Save()
+			}
+		case 3:
+			acc.DisplayData()
+		case 4:
+			fmt.Printf("\nExiting...\n")
+			fmt.Printf("Back to banking options...\n\n")
+			return
+		default:
+			fmt.Println("This was not an option!")
+
+		}
 	}
+
+}
+
+func bankError(err error) {
+	fmt.Printf("\nError: %v\n\n", err)
+	fmt.Printf("Returning to account options...\n\n")
 }
 
 func getNote() (*account.Account, error) {
